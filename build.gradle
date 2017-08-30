@@ -1,15 +1,27 @@
 apply plugin: 'kotlin'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
 repositories {
     mavenCentral()
 }
 
+buildscript {
+
+    ext.kotlin_version = '1.1.4'
+    ext.gson_version   = '2.7'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
     compile "com.google.code.gson:gson:$gson_version"
 
     testCompile 'junit:junit:4.12'
