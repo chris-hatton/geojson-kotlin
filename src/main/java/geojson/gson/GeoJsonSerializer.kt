@@ -66,7 +66,10 @@ class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
     private fun writeFeature(feature: Feature ) : JsonObject = JsonObject().apply {
         addProperty(GeoJsonType.Feature.idKey, feature.id)
         add( GeoJsonType.Feature.geometryKey, writeGeometry( feature.geometry ) )
-        add( GeoJsonType.Feature.propertiesKey, feature.properties )
+
+        val jsonTree = Gson().toJsonTree(feature.properties)
+
+        add( GeoJsonType.Feature.propertiesKey, jsonTree )
     }
 
     private fun writeFeatureCollection(featureCollection: FeatureCollection ) : JsonObject {

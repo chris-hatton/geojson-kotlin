@@ -1,6 +1,7 @@
 package geojson.gson
 
 import com.google.gson.*
+import com.google.gson.reflect.TypeToken
 import geojson.Feature
 import geojson.FeatureCollection
 import geojson.GeoJsonObject
@@ -81,7 +82,11 @@ class GeoJsonDeserializer<T: GeoJsonObject> : JsonDeserializer<T> {
         val id : String? = jsonObject.getAsJsonPrimitive(GeoJsonType.Feature.idKey)?.asString
         val geometryObject : JsonObject = jsonObject.getAsJsonObject( GeoJsonType.Feature.geometryKey )
         val geometry : Geometry<*> = readGeometry( geometryObject )
-        val properties = jsonObject.getAsJsonObject( GeoJsonType.Feature.propertiesKey )
+
+        val propertiesTypeToken = object : TypeToken<Map<String,Any>>() {}
+        val propertiesJson = jsonObject.getAsJsonObject( GeoJsonType.Feature.propertiesKey )
+        val properties = Gson().fromJson<Map<String,Any>>(propertiesJson, propertiesTypeToken.type)
+
         return Feature( id, geometry, properties )
     }
 

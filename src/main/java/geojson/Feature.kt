@@ -6,5 +6,5 @@ import geojson.geometry.Geometry
 data class Feature(
         val id         : String? = null,
         val geometry   : Geometry<*>,
-        val properties : JsonObject = JsonObject()
+        val properties : Map<String,Any> = mapOf()
     ) : GeoJsonObject()
