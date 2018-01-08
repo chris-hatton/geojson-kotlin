@@ -23,6 +23,8 @@ data class BoundingBox(
     }
 
     companion object {
-        var all : BoundingBox = BoundingBox( southWest = Point(-180.0, -90.0), northEast = Point(180.0, 90.0))
+
+        /* A bounding-box which encompasses the entire globe, from the most south-westerly to the most north-easterly point. */
+        var Global: BoundingBox = BoundingBox( southWest = Point.Minimum, northEast = Point.Maximum)
     }
 }
