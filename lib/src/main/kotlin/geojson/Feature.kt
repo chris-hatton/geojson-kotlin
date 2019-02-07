@@ -1,6 +1,5 @@
 package geojson
 
-import com.google.gson.JsonObject
 import geojson.geometry.Geometry
 
 data class Feature(

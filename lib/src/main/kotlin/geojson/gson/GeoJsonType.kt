@@ -1,7 +1,6 @@
 package geojson.gson
 
 import geojson.GeoJsonObject
-import geojson.geometry.Geometry
 import kotlin.reflect.KClass
 
 /**

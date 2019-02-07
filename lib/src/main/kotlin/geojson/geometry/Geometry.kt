@@ -2,7 +2,6 @@ package geojson.geometry
 
 import geojson.GeoJsonObject
 import geojson.Position
-import geojson.geometry.impl.LineString
 
 /**
  * https://tools.ietf.org/html/rfc7946#section-3.1

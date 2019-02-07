@@ -1,0 +1,51 @@
+plugins {
+    id "fr.coppernic.versioning" version "3.1.2"
+    id "org.jetbrains.kotlin.jvm" version "1.3.21"
+    id "org.jetbrains.dokka"  version "0.9.17"
+    id "maven-publish"
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    testCompile 'junit:junit:4.12'
+}
+
+tasks.dokka {
+    outputFormat = "html"
+    outputDirectory = "$buildDir/javadoc"
+    moduleName = rootProject.name
+}
+
+
+task dokkaJar(type: Jar, dependsOn: "dokka") {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    classifier = 'javadoc'
+    from tasks.dokka
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+group = "fr.bipi.lib"
+version = project.versioning.info.display
+
+publishing {
+    publications {
+        lib(MavenPublication) {
+            artifactId = "kgeogson"
+            from components.java
+            artifact dokkaJar
+            artifact sourcesJar
+        }
+    }
+}

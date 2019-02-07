@@ -1,6 +1,5 @@
 package geojson.geometry.impl
 
-import geojson.Exception
 import geojson.Position
 import geojson.checkAltitudeConsistent
 import geojson.geometry.Geometry
