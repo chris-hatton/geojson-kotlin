@@ -12,10 +12,10 @@ import geojson.geometry.impl.Point
  * https://tools.ietf.org/html/rfc7946#section-5
  */
 data class BoundingBox(
-        val southWest : Point,
-        val northEast : Point
+        val southWest: Point,
+        val northEast: Point
 ) {
-    constructor( west: Double, south: Double, east: Double, north: Double ) : this( Point(west,south), Point(east,north) )
+    constructor(west: Double, south: Double, east: Double, north: Double) : this(Point(west, south), Point(east, north))
 
     override fun toString(): String {
         // left,lower,right,upper,crs
@@ -25,6 +25,6 @@ data class BoundingBox(
     companion object {
 
         /* A bounding-box which encompasses the entire globe, from the most south-westerly to the most north-easterly point. */
-        var Global: BoundingBox = BoundingBox( southWest = Point.minimum, northEast = Point.maximum)
+        var Global: BoundingBox = BoundingBox(southWest = Point.minimum, northEast = Point.maximum)
     }
 }

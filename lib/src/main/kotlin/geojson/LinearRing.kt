@@ -16,16 +16,16 @@ object LinearRing {
     /**
      * Determine if this sequence of Positions meets the criteria of being a Linear Ring.
      */
-    fun isLinearRing( positions: List<Position> ) : Boolean {
-        return with( positions ) {
+    fun isLinearRing(positions: List<Position>): Boolean {
+        return with(positions) {
             // Position-count and start-end sameness checked.  TODO: Check winding?
-            ( count() >= 4 ) && ( first() == last() )
+            (count() >= 4) && (first() == last())
         }
     }
 
-    fun fromVertices( positions: List<Position> ) : List<Position> {
-        return with( positions ) {
-            if( count() >= 3 ) {
+    fun fromVertices(positions: List<Position>): List<Position> {
+        return with(positions) {
+            if (count() >= 3) {
                 this + first()
             } else {
                 throw Exception.InsufficientPositions

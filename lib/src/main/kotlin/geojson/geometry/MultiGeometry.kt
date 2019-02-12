@@ -19,7 +19,7 @@ interface MultiGeometry<out SG> {
     /**
      * Return a collection of singular geometry instances, split from this multi-geometry instance.
      */
-    fun split() : List<SG>
+    fun split(): List<SG>
 
     /**
      * Interface which, by convention alone, the 'companion object' of multi-geometry classes
@@ -31,11 +31,11 @@ interface MultiGeometry<out SG> {
      */
     interface Companion<in SG, in SGC, out MG> {
 
-        fun join( geometries: List<SG> ) : MG
+        fun join(geometries: List<SG>): MG
 
-        fun join( vararg geometries: SG ) = join( geometries.toList() )
+        fun join(vararg geometries: SG) = join(geometries.toList())
 
-        fun validateCoordinates( coordinates: List<SGC> )
+        fun validateCoordinates(coordinates: List<SGC>)
     }
 }
 
