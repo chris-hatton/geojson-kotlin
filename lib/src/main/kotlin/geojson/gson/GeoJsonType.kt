@@ -5,14 +5,14 @@ import kotlin.reflect.KClass
 
 /**
  * Codifies a mapping between GeoJSON types and their Kotlin-class representations.
- * Used by [GeometrySerializer] and [GeometryDeserializer].
+ * Used by [GeoJsonSerializer] and [GeoJsonDeserializer].
  */
 sealed class GeoJsonType( val typeValue: String, val `class`: KClass<*>) {
 
     sealed class Geometry(typeValue: String, `class`: KClass<*>) : GeoJsonType(typeValue,`class`) {
 
         companion object {
-            val coordinatesKey = "coordinates"
+            const val coordinatesKey = "coordinates"
         }
 
         object Point           : Geometry( typeValue = "Point"          , `class` = geojson.geometry.impl.Point          ::class)
@@ -23,22 +23,22 @@ sealed class GeoJsonType( val typeValue: String, val `class`: KClass<*>) {
         object MultiPolygon    : Geometry( typeValue = "MultiPolygon"   , `class` = geojson.geometry.impl.MultiPolygon   ::class)
     }
 
-    object Feature : GeoJsonType(typeValue = "Feature", `class` = Feature::class) {
-        val idKey         = "id"
-        val propertiesKey = "properties"
-        val geometryKey   = "geometry"
+    object Feature : GeoJsonType(typeValue = "Feature", `class` = geojson.Feature::class) {
+        const val idKey         = "id"
+        const val propertiesKey = "properties"
+        const val geometryKey   = "geometry"
     }
 
-    object FeatureCollection : GeoJsonType(typeValue = "FeatureCollection", `class` = FeatureCollection ::class) {
-        val featuresKey      = "features"
-        val totalFeaturesKey = "totalFeatures"
+    object FeatureCollection : GeoJsonType(typeValue = "FeatureCollection", `class` = geojson.FeatureCollection ::class) {
+        const val featuresKey      = "features"
+        const val totalFeaturesKey = "totalFeatures"
     }
 
     companion object {
 
-        val typeKey = "type"
+        const val typeKey = "type"
 
-        val allTypes : Array<GeoJsonType> = arrayOf(
+        private val allTypes : MutableList<GeoJsonType> = mutableListOf(
                 GeoJsonType.Geometry.Point,
                 GeoJsonType.Geometry.MultiPoint,
                 GeoJsonType.Geometry.LineString,
@@ -50,7 +50,7 @@ sealed class GeoJsonType( val typeValue: String, val `class`: KClass<*>) {
         )
 
         fun forString( typeName: String )        : GeoJsonType? = allTypes.find { it.typeValue == typeName }
-        fun forObject( `object`: GeoJsonObject ) : GeoJsonType? = allTypes.find { it.`class` == `object`::class }
+        fun forObject(obj: GeoJsonObject ) : GeoJsonType? = allTypes.find { it.`class` == obj::class }
     }
 }
 

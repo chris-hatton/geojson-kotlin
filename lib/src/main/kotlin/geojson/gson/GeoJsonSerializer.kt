@@ -7,7 +7,6 @@ import geojson.FeatureCollection
 import geojson.GeoJsonObject
 import geojson.Position
 import geojson.geometry.Geometry
-import geojson.geometry.MultiLineString
 import geojson.geometry.impl.*
 import java.lang.reflect.Type
 
@@ -15,18 +14,12 @@ import java.lang.reflect.Type
 class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
 
     override fun serialize(src: T, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
-
-        val jsonObject : JsonObject = when( src ) {
+        return when( src ) {
             is Feature           -> writeFeature(src)
             is FeatureCollection -> writeFeatureCollection(src)
             is Geometry<*>       -> writeGeometry(src)
             else -> throw Exception.UnsupportedType(src::class)
         }
-
-        val geoJsonType : GeoJsonType = GeoJsonType.forObject(src) ?: throw geojson.Exception.UnsupportedType( src::class )
-        jsonObject.addProperty( GeoJsonType.typeKey, geoJsonType.typeValue )
-
-        return jsonObject
     }
 
     private fun writePosition( coordinates: Position) : JsonArray {
@@ -46,6 +39,11 @@ class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
     private fun writeListOfListOfListOfPositions( coordinates: List<List<List<Position>>> ) : JsonArray =
         JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writeListOfListOfPositions).forEach(this::add) }
 
+    private fun JsonObject.addType(src: GeoJsonObject) {
+        val geoJsonType : GeoJsonType = GeoJsonType.forObject(src) ?: throw geojson.Exception.UnsupportedType( src::class )
+        addProperty( GeoJsonType.typeKey, geoJsonType.typeValue )
+    }
+
     private fun writeGeometry( geometry: Geometry<*> ) : JsonObject {
 
         val coordinatesArray : JsonArray = when( geometry ) {
@@ -60,6 +58,7 @@ class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
 
         return JsonObject().apply {
             add( GeoJsonType.Geometry.coordinatesKey, coordinatesArray )
+            addType(geometry)
         }
     }
 
@@ -70,6 +69,8 @@ class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
         val jsonTree = Gson().toJsonTree(feature.properties)
 
         add( GeoJsonType.Feature.propertiesKey, jsonTree )
+
+        addType(feature)
     }
 
     private fun writeFeatureCollection(featureCollection: FeatureCollection ) : JsonObject {
@@ -81,6 +82,7 @@ class GeoJsonSerializer<T: GeoJsonObject> : JsonSerializer<T> {
         return JsonObject().apply {
             add( GeoJsonType.FeatureCollection.featuresKey, featuresArray )
             addProperty( GeoJsonType.FeatureCollection.totalFeaturesKey, featureCollection.totalFeatures )
+            addType(featureCollection)
         }
     }
 }

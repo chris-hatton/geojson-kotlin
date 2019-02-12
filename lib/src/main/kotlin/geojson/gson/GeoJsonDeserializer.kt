@@ -7,7 +7,6 @@ import geojson.FeatureCollection
 import geojson.GeoJsonObject
 import geojson.Position
 import geojson.geometry.Geometry
-import geojson.geometry.MultiLineString
 import geojson.geometry.impl.*
 import java.lang.reflect.Type
 
@@ -27,8 +26,8 @@ class GeoJsonDeserializer<T: GeoJsonObject> : JsonDeserializer<T> {
     }
 
     private fun readType( jsonObject: JsonObject ) : GeoJsonType {
-        val typeName : String = jsonObject.get(GeoJsonType.typeKey).asString
-        return GeoJsonType.forString( typeName ) ?: throw JsonParseException("Unrecognised geometry type '$typeName'")
+        val typeName : String? = jsonObject.get(GeoJsonType.typeKey)?.asString
+        return GeoJsonType.forString( typeName?:"" ) ?: throw JsonParseException("Unrecognised geometry type '$typeName'")
     }
 
     private fun readPosition( element: JsonElement) : Position {

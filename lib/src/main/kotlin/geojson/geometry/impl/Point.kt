@@ -41,9 +41,9 @@ class Point( coordinates: PointCoordinates) : Geometry<PointCoordinates>( coordi
         }
 
         /* The most South-Westerly point. */
-        val Minimum = Point( longitude = -180.0, latitude = -90.0 )
+        val minimum = Point( longitude = -180.0, latitude = -90.0 )
 
         /* The most North-Easterly point. */
-        val Maximum = Point( longitude =  180.0, latitude =  90.0 )
+        val maximum = Point( longitude =  180.0, latitude =  90.0 )
     }
 }

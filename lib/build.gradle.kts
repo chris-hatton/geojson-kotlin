@@ -36,17 +36,18 @@ tasks {
 val dokkaJar by tasks.creating(Jar::class) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
     description = "Assembles Kotlin docs with Dokka"
-    classifier = "javadoc"
+    archiveClassifier.set("javadoc")
     from(tasks.dokka)
     dependsOn(tasks.dokka)
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
-    classifier = "sources"
+    archiveClassifier.set("sources")
     from(sourceSets.getByName("main").allSource)
 }
 
 val artifactName = "kgeogson"
+val artifactGroup = "fr.bipi.lib"
 
 val pomUrl = "https://github.com/bastienpaulfr/geojson-kotlin"
 val pomScmUrl = "https://github.com/bastienpaulfr/geojson-kotlin"
@@ -69,7 +70,7 @@ val pomDeveloperName = "Bastien Paul"
 publishing {
     publications {
         create<MavenPublication>("lib") {
-            groupId = "fr.bipi.lib"
+            groupId = artifactGroup
             artifactId = artifactName
             version = project.versioning.info.display
             from(components["java"])
@@ -107,19 +108,22 @@ bintray {
 
     setPublications("lib")
 
-    pkg.repo = "maven"
-    pkg.name = rootProject.name
-    pkg.setLicenses("Apache-2.0")
-    pkg.setLabels("Gson", "json", "GeoJson", "GPS", "Kotlin")
-    pkg.vcsUrl = pomScmUrl
-    pkg.websiteUrl = pomUrl
-    pkg.issueTrackerUrl = pomIssueUrl
-    pkg.githubRepo = githubRepo
-    pkg.githubReleaseNotesFile = githubReadme
+    pkg.apply {
+        repo = "maven"
+        name = rootProject.name
+        setLicenses("Apache-2.0")
+        setLabels("Gson", "json", "GeoJson", "GPS", "Kotlin")
+        vcsUrl = pomScmUrl
+        websiteUrl = pomUrl
+        issueTrackerUrl = pomIssueUrl
+        githubRepo = githubRepo
+        githubReleaseNotesFile = githubReadme
 
-    pkg.version.name = project.versioning.info.display
-    pkg.version.desc = pomDesc
-    pkg.version.released = Date().toString()
-    pkg.version.vcsTag = project.versioning.info.tag
-
+        version.apply {
+            name = project.versioning.info.display
+            desc = pomDesc
+            released = Date().toString()
+            vcsTag = project.versioning.info.tag
+        }
+    }
 }
