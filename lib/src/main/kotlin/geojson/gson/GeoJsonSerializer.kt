@@ -7,7 +7,7 @@ import geojson.geometry.impl.*
 import java.lang.reflect.Type
 
 //@Suppress("UNCHECKED_CAST")
-class GeoJsonSerializer<T : GeoJsonObject> : JsonSerializer<T> {
+class GeoJsonSerializer<T : GeoJsonObject>(private val lenient: Boolean = false) : JsonSerializer<T> {
 
     override fun serialize(src: T, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
         return when (src) {

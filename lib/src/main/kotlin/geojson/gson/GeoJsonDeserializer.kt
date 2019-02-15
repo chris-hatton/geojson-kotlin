@@ -11,7 +11,7 @@ import geojson.geometry.impl.*
 import java.lang.reflect.Type
 
 @Suppress("UNCHECKED_CAST")
-class GeoJsonDeserializer<T : GeoJsonObject> : JsonDeserializer<T> {
+class GeoJsonDeserializer<T : GeoJsonObject>(private val lenient: Boolean = false) : JsonDeserializer<T> {
 
     @Throws(JsonParseException::class)
     override fun deserialize(json: JsonElement, type: Type, context: JsonDeserializationContext): T {
@@ -96,9 +96,13 @@ class GeoJsonDeserializer<T : GeoJsonObject> : JsonDeserializer<T> {
         val jsonObject: JsonObject = element.asJsonObject ?: throw geojson.Exception.IllegalFormat()
         val featuresArray: JsonArray = jsonObject.get(GeoJsonType.FeatureCollection.featuresKey)?.asJsonArray
                 ?: throw geojson.Exception.IllegalFormat()
-        val totalFeatures: Int = jsonObject.get(GeoJsonType.FeatureCollection.totalFeaturesKey)?.asInt
-                ?: throw geojson.Exception.IllegalFormat()
         val features = featuresArray.map { readFeature(it) }
+        val totalFeatures: Int = if (lenient) {
+            jsonObject.get(GeoJsonType.FeatureCollection.totalFeaturesKey)?.asInt ?: features.size
+        } else {
+            jsonObject.get(GeoJsonType.FeatureCollection.totalFeaturesKey)?.asInt
+                    ?: throw geojson.Exception.IllegalFormat()
+        }
         return FeatureCollection(totalFeatures = totalFeatures, features = features)
     }
 }

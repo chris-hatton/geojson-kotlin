@@ -5,7 +5,7 @@ import com.google.gson.internal.bind.TreeTypeAdapter
 import com.google.gson.reflect.TypeToken
 import geojson.GeoJsonObject
 
-class GeoJsonTypeAdapterFactory : TypeAdapterFactory {
+class GeoJsonTypeAdapterFactory(private val lenient: Boolean = false) : TypeAdapterFactory {
 
     companion object {
         val geoJsonObjectTypeToken: TypeToken<GeoJsonObject> = TypeToken.get(GeoJsonObject::class.java)
@@ -19,8 +19,8 @@ class GeoJsonTypeAdapterFactory : TypeAdapterFactory {
             return null
         }
 
-        val serializer: JsonSerializer<GeoJsonObject> = GeoJsonSerializer()
-        val deserializer: JsonDeserializer<GeoJsonObject> = GeoJsonDeserializer()
+        val serializer: JsonSerializer<GeoJsonObject> = GeoJsonSerializer(lenient)
+        val deserializer: JsonDeserializer<GeoJsonObject> = GeoJsonDeserializer(lenient)
 
         @Suppress("UNCHECKED_CAST")
         val adapter = TreeTypeAdapter<GeoJsonObject>(serializer, deserializer, gson, geoJsonObjectTypeToken, this) as TypeAdapter<T>
