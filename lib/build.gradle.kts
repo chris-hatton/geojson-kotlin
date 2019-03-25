@@ -70,7 +70,7 @@ publishing {
         create<MavenPublication>("lib") {
             groupId = artifactGroup
             artifactId = artifactName
-            version = project.versioning.info.display
+            version = project.versioning.info.full
             from(components["java"])
             artifact(dokkaJar)
             artifact(sourcesJar)
@@ -122,7 +122,7 @@ bintray {
         githubReleaseNotesFile = githubReadme
 
         version.apply {
-            name = project.versioning.info.display
+            name = project.versioning.info.full
             desc = pomDesc
             released = Date().toString()
             vcsTag = project.versioning.info.tag
