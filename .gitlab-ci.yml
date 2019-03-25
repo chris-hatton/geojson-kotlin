@@ -32,8 +32,10 @@ test:
 
 deploy:
   stage: deploy
+  only:
+    - master
   script:
-    - ./gradlew publish
+    - ./gradlew bintrayUpload
 
 after_script:
   - echo "End CI"

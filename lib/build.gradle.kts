@@ -46,7 +46,7 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets.getByName("main").allSource)
 }
 
-val artifactName = "kgeogson"
+val artifactName = "geojson-kotlin"
 val artifactGroup = "org.chrishatton.lib"
 
 val pomUrl = "https://github.com/chris-hatton/geojson-kotlin"
@@ -99,14 +99,19 @@ publishing {
 }
 
 bintray {
-    user = if (project.hasProperty("bintray_user")) project.property("bintray_user") as String else ""
-    key = if (project.hasProperty("bintray_key")) project.property("bintray_key") as String else ""
+
+    val properties = Properties()
+    val inputStream = project.rootProject.file("local.properties").inputStream()
+    properties.load( inputStream )
+
+    user = System.getenv("bintrayUser") ?: properties.getProperty("bintrayUser")
+    key = System.getenv("bintrayKey") ?: properties.getProperty("bintrayKey")
     publish = true
 
     setPublications("lib")
 
     pkg.apply {
-        repo = "maven"
+        repo = "lib"
         name = rootProject.name
         setLicenses("Apache-2.0")
         setLabels("Gson", "json", "GeoJson", "GPS", "Kotlin")
