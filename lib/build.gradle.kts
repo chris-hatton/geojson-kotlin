@@ -47,24 +47,22 @@ val sourcesJar by tasks.creating(Jar::class) {
 }
 
 val artifactName = "kgeogson"
-val artifactGroup = "fr.bipi.lib"
+val artifactGroup = "org.chrishatton.lib"
 
-val pomUrl = "https://github.com/bastienpaulfr/geojson-kotlin"
-val pomScmUrl = "https://github.com/bastienpaulfr/geojson-kotlin"
-val pomIssueUrl = "https://github.com/bastienpaulfr/geojson-kotlin/issues"
-val pomDesc = "Kotlin GeoJson by Gson"
-val pomScmConnection = "scm:git:git://github.com/Coppernic/AndroidUtils"
-val pomScmDevConnection = "scm:git:git://github.com/Coppernic/AndroidUtils"
+val pomUrl = "https://github.com/chris-hatton/geojson-kotlin"
+val pomScmUrl = "https://github.com/chris-hatton/geojson-kotlin"
+val pomIssueUrl = "https://github.com/chris-hatton/geojson-kotlin/issues"
+val pomDesc = "https://github.com/chris-hatton/geojson-kotlin"
 
-val githubRepo = "bastienpaulfr/geojson-kotlin"
+val githubRepo = "chris-hatton/geojson-kotlin"
 val githubReadme = "README.md"
 
 val pomLicenseName = "The Apache Software License, Version 2.0"
 val pomLicenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
 val pomLicenseDist = "repo"
 
-val pomDeveloperId = "bastienpaulfr"
-val pomDeveloperName = "Bastien Paul"
+val pomDeveloperId = "chris-hatton"
+val pomDeveloperName = "Chris Hatton"
 
 
 publishing {
@@ -93,7 +91,6 @@ publishing {
                     }
                     appendNode("scm").apply {
                         appendNode("url", pomScmUrl)
-                        appendNode("connection", pomScmConnection)
                     }
                 }
             }
