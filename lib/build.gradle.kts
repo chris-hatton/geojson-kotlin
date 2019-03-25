@@ -64,6 +64,9 @@ val pomLicenseDist = "repo"
 val pomDeveloperId = "chris-hatton"
 val pomDeveloperName = "Chris Hatton"
 
+versioning {
+    releaseMode = "snapshot"
+}
 
 publishing {
     publications {
