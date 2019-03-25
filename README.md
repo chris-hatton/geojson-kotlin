@@ -4,7 +4,7 @@ An implementation of GeoJSON / RFC7946 for Kotlin, using GSON.
 
 ## Download 
 
- [ ![Download](https://api.bintray.com/packages/chris-hatton/maven/KGeoGson/images/download.svg) ](https://bintray.com/chris-hatton/maven/KGeoGson/_latestVersion)
+ [ ![Download](https://api.bintray.com/packages/chris-hatton/maven/geojson-kotlin/images/download.svg) ](https://bintray.com/chris-hatton/maven/KGeoGson/_latestVersion)
 
 ```groovy
 repositories {
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.bipi.lib:kgeogson:0.0.2'
+    implementation 'org.chrishatton.lib:geojson-kotlin:0.0.1'
 }
 
 ```
