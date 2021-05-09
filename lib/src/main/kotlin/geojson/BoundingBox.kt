@@ -12,8 +12,8 @@ import geojson.geometry.impl.Point
  * https://tools.ietf.org/html/rfc7946#section-5
  */
 data class BoundingBox(
-        val southWest: Point,
-        val northEast: Point
+    val southWest: Point,
+    val northEast: Point
 ) {
     constructor(west: Double, south: Double, east: Double, north: Double) : this(Point(west, south), Point(east, north))
 

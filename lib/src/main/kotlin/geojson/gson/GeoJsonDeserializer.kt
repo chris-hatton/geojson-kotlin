@@ -28,7 +28,7 @@ class GeoJsonDeserializer<T : GeoJsonObject>(private val lenient: Boolean = fals
     private fun readType(jsonObject: JsonObject): GeoJsonType {
         val typeName: String? = jsonObject.get(GeoJsonType.typeKey)?.asString
         return GeoJsonType.forString(typeName ?: "")
-                ?: throw JsonParseException("Unrecognised geometry type '$typeName'")
+            ?: throw JsonParseException("Unrecognised geometry type '$typeName'")
     }
 
     private fun readPosition(element: JsonElement): Position {
@@ -56,8 +56,8 @@ class GeoJsonDeserializer<T : GeoJsonObject>(private val lenient: Boolean = fals
     }
 
     private fun readCoordinates(element: JsonElement): JsonElement =
-            (element as? JsonObject)?.get(GeoJsonType.Geometry.coordinatesKey)
-                    ?: throw geojson.Exception.IllegalFormat()
+        (element as? JsonObject)?.get(GeoJsonType.Geometry.coordinatesKey)
+            ?: throw geojson.Exception.IllegalFormat()
 
     private fun readPoint(element: JsonElement): Point = Point(coordinates = readPosition(readCoordinates(element)))
     private fun readMultiPoint(element: JsonElement): MultiPoint = MultiPoint(coordinates = readListOfPositions(readCoordinates(element)))
@@ -67,9 +67,9 @@ class GeoJsonDeserializer<T : GeoJsonObject>(private val lenient: Boolean = fals
     private fun readMultiPolygon(element: JsonElement): MultiPolygon = MultiPolygon(coordinates = readListOfListOfListOfPositions(readCoordinates(element)))
 
     private fun readGeometry(
-            element: JsonElement,
-            geometryType: GeoJsonType.Geometry = readType(element.asJsonObject) as? GeoJsonType.Geometry
-                    ?: throw Exception()
+        element: JsonElement,
+        geometryType: GeoJsonType.Geometry = readType(element.asJsonObject) as? GeoJsonType.Geometry
+            ?: throw Exception()
     ): Geometry<*> = when (geometryType) {
         GeoJsonType.Geometry.Point -> readPoint(element)
         GeoJsonType.Geometry.MultiPoint -> readMultiPoint(element)
@@ -95,13 +95,13 @@ class GeoJsonDeserializer<T : GeoJsonObject>(private val lenient: Boolean = fals
     private fun readFeatureCollection(element: JsonElement): FeatureCollection {
         val jsonObject: JsonObject = element.asJsonObject ?: throw geojson.Exception.IllegalFormat()
         val featuresArray: JsonArray = jsonObject.get(GeoJsonType.FeatureCollection.featuresKey)?.asJsonArray
-                ?: throw geojson.Exception.IllegalFormat()
+            ?: throw geojson.Exception.IllegalFormat()
         val features = featuresArray.map { readFeature(it) }
         val totalFeatures: Int = if (lenient) {
             jsonObject.get(GeoJsonType.FeatureCollection.totalFeaturesKey)?.asInt ?: features.size
         } else {
             jsonObject.get(GeoJsonType.FeatureCollection.totalFeaturesKey)?.asInt
-                    ?: throw geojson.Exception.IllegalFormat()
+                ?: throw geojson.Exception.IllegalFormat()
         }
         return FeatureCollection(totalFeatures = totalFeatures, features = features)
     }

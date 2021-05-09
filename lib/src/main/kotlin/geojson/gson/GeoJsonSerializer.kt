@@ -6,7 +6,7 @@ import geojson.geometry.Geometry
 import geojson.geometry.impl.*
 import java.lang.reflect.Type
 
-//@Suppress("UNCHECKED_CAST")
+// @Suppress("UNCHECKED_CAST")
 class GeoJsonSerializer<T : GeoJsonObject>(private val lenient: Boolean = false) : JsonSerializer<T> {
 
     override fun serialize(src: T, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
@@ -27,13 +27,13 @@ class GeoJsonSerializer<T : GeoJsonObject>(private val lenient: Boolean = false)
     }
 
     private fun writeListOfPositions(coordinates: List<Position>): JsonArray =
-            JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writePosition).forEach(this::add) }
+        JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writePosition).forEach(this::add) }
 
     private fun writeListOfListOfPositions(coordinates: List<List<Position>>): JsonArray =
-            JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writeListOfPositions).forEach(this::add) }
+        JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writeListOfPositions).forEach(this::add) }
 
     private fun writeListOfListOfListOfPositions(coordinates: List<List<List<Position>>>): JsonArray =
-            JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writeListOfListOfPositions).forEach(this::add) }
+        JsonArray().apply { coordinates.map(this@GeoJsonSerializer::writeListOfListOfPositions).forEach(this::add) }
 
     private fun JsonObject.addType(src: GeoJsonObject) {
         val geoJsonType: GeoJsonType = GeoJsonType.forObject(src) ?: throw geojson.Exception.UnsupportedType(src::class)

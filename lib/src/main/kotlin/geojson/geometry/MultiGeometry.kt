@@ -38,4 +38,3 @@ interface MultiGeometry<out SG> {
         fun validateCoordinates(coordinates: List<SGC>)
     }
 }
-

@@ -18,9 +18,9 @@ class ValidGeometryCommuteTests {
     @Test
     fun testCommuteMultiPoint() {
         val multiPoint: MultiPoint = MultiPoint.join(
-                Point.fromVertexPairs(1.1 to 1.2),
-                Point.fromVertexPairs(1.3 to 1.4),
-                Point.fromVertexPairs(1.5 to 1.6)
+            Point.fromVertexPairs(1.1 to 1.2),
+            Point.fromVertexPairs(1.3 to 1.4),
+            Point.fromVertexPairs(1.5 to 1.6)
         )
         testCommuteJson(geoJsonObject = multiPoint)
     }
@@ -28,9 +28,9 @@ class ValidGeometryCommuteTests {
     @Test
     fun testCommuteLineString() {
         val lineString: LineString = LineString.fromVertexPairs(
-                (0.0 to 0.0),
-                (1.0 to 0.0),
-                (1.0 to 1.0)
+            (0.0 to 0.0),
+            (1.0 to 0.0),
+            (1.0 to 1.0)
         )
         testCommuteJson(geoJsonObject = lineString)
     }
@@ -38,14 +38,14 @@ class ValidGeometryCommuteTests {
     @Test
     fun testCommuteMultiLineString() {
         val lineString1: LineString = LineString.fromVertexPairs(
-                (0.0 to 0.0),
-                (1.0 to 0.0),
-                (1.0 to 1.0)
+            (0.0 to 0.0),
+            (1.0 to 0.0),
+            (1.0 to 1.0)
         )
         val lineString2: LineString = LineString.fromVertexPairs(
-                (3.0 to 4.0),
-                (4.0 to 2.0),
-                (5.0 to 5.0)
+            (3.0 to 4.0),
+            (4.0 to 2.0),
+            (5.0 to 5.0)
         )
         val multiLineString: MultiLineString = MultiLineString.join(lineString1, lineString2)
         testCommuteJson(geoJsonObject = multiLineString)
@@ -54,10 +54,10 @@ class ValidGeometryCommuteTests {
     @Test
     fun testCommutePolygon() {
         val polygon: Polygon = Polygon.fromVertexPairs(
-                (0.0 to 0.0),
-                (1.0 to 0.0),
-                (1.0 to 1.0),
-                (0.0 to 1.0)
+            (0.0 to 0.0),
+            (1.0 to 0.0),
+            (1.0 to 1.0),
+            (0.0 to 1.0)
         )
         testCommuteJson(geoJsonObject = polygon)
     }
@@ -65,16 +65,16 @@ class ValidGeometryCommuteTests {
     @Test
     fun testCommuteMultiPolygon() {
         val polygon1: Polygon = Polygon.fromVertexPairs(
-                (0.0 to 0.0),
-                (1.0 to 0.0),
-                (1.0 to 1.0),
-                (0.0 to 1.0)
+            (0.0 to 0.0),
+            (1.0 to 0.0),
+            (1.0 to 1.0),
+            (0.0 to 1.0)
         )
         val polygon2: Polygon = Polygon.fromVertexPairs(
-                (2.0 to 2.0),
-                (3.0 to 2.0),
-                (3.0 to 3.0),
-                (2.0 to 3.0)
+            (2.0 to 2.0),
+            (3.0 to 2.0),
+            (3.0 to 3.0),
+            (2.0 to 3.0)
         )
         val multiPolygon = MultiPolygon.join(polygon1, polygon2)
         testCommuteJson(geoJsonObject = multiPolygon)

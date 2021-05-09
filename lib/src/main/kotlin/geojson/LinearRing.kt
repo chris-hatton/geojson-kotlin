@@ -37,4 +37,3 @@ object LinearRing {
         object InsufficientPositions : Exception()
     }
 }
-

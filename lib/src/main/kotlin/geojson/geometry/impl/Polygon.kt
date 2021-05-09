@@ -28,4 +28,3 @@ class Polygon internal constructor(coordinates: PolygonCoordinates) : Geometry<P
         }
     }
 }
-

@@ -1,11 +1,11 @@
 import java.util.*
 
 plugins {
-
-    kotlin("jvm") version "1.3.21"
-    id("fr.coppernic.versioning") version "3.1.2"
-    id("org.jetbrains.dokka") version "0.9.17"
-    id("com.jfrog.bintray") version "1.8.4"
+    kotlin("jvm") version "1.5.0"
+    id("com.github.ben-manes.versions") version "0.38.0"
+    id("fr.coppernic.versioning") version "3.2.1"
+    id("org.jetbrains.dokka") version "1.4.32"
+    id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
 }
 
@@ -15,31 +15,30 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson:2.8.6")
 
-    testCompile("junit:junit:4.12")
+    testImplementation("junit:junit:4.13.2")
 }
 
 tasks {
-    dokka {
-        outputFormat = "html"
-        outputDirectory = "$buildDir/javadoc"
-        moduleName = rootProject.name
-    }
+//    dokka {
+//        outputFormat = "html"
+//        outputDirectory = "$buildDir/javadoc"
+//        moduleName = rootProject.name
+//    }
 
     publishToMavenLocal {
         dependsOn(build)
     }
 }
 
-val dokkaJar by tasks.creating(Jar::class) {
-    group = JavaBasePlugin.DOCUMENTATION_GROUP
-    description = "Assembles Kotlin docs with Dokka"
-    archiveClassifier.set("javadoc")
-    from(tasks.dokka)
-    dependsOn(tasks.dokka)
-}
+// val dokkaJar by tasks.creating(Jar::class) {
+//    group = JavaBasePlugin.DOCUMENTATION_GROUP
+//    description = "Assembles Kotlin docs with Dokka"
+//    archiveClassifier.set("javadoc")
+//    from(tasks.dokka)
+//    dependsOn(tasks.dokka)
+// }
 
 val sourcesJar by tasks.creating(Jar::class) {
     archiveClassifier.set("sources")
@@ -75,7 +74,7 @@ publishing {
             artifactId = artifactName
             version = project.versioning.info.full
             from(components["java"])
-            artifact(dokkaJar)
+            // artifact(dokkaJar)
             artifact(sourcesJar)
 
             pom.withXml {
@@ -105,7 +104,7 @@ bintray {
 
     val properties = Properties()
     val inputStream = project.rootProject.file("local.properties").inputStream()
-    properties.load( inputStream )
+    properties.load(inputStream)
 
     user = System.getenv("bintrayUser") ?: properties.getProperty("bintrayUser")
     key = System.getenv("bintrayKey") ?: properties.getProperty("bintrayKey")

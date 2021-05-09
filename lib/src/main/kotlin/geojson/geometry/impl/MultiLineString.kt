@@ -13,7 +13,7 @@ class MultiLineString(coordinates: List<LineStringCoordinates>) : Geometry<List<
     companion object : MultiGeometry.Companion<LineString, LineStringCoordinates, MultiLineString> {
 
         override fun join(geometries: List<LineString>): MultiLineString =
-                MultiLineString(coordinates = geometries.map { it.coordinates })
+            MultiLineString(coordinates = geometries.map { it.coordinates })
 
         /** Each child component of the [MultiLineString] must be [LineString] compliant. */
         override fun validateCoordinates(coordinates: List<LineStringCoordinates>) {

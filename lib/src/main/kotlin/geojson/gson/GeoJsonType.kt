@@ -39,20 +39,17 @@ sealed class GeoJsonType(val typeValue: String, val `class`: KClass<*>) {
         const val typeKey = "type"
 
         private val allTypes: MutableList<GeoJsonType> = mutableListOf(
-                GeoJsonType.Geometry.Point,
-                GeoJsonType.Geometry.MultiPoint,
-                GeoJsonType.Geometry.LineString,
-                GeoJsonType.Geometry.MultiLineString,
-                GeoJsonType.Geometry.Polygon,
-                GeoJsonType.Geometry.MultiPolygon,
-                GeoJsonType.Feature,
-                GeoJsonType.FeatureCollection
+            GeoJsonType.Geometry.Point,
+            GeoJsonType.Geometry.MultiPoint,
+            GeoJsonType.Geometry.LineString,
+            GeoJsonType.Geometry.MultiLineString,
+            GeoJsonType.Geometry.Polygon,
+            GeoJsonType.Geometry.MultiPolygon,
+            GeoJsonType.Feature,
+            GeoJsonType.FeatureCollection
         )
 
         fun forString(typeName: String): GeoJsonType? = allTypes.find { it.typeValue == typeName }
         fun forObject(obj: GeoJsonObject): GeoJsonType? = allTypes.find { it.`class` == obj::class }
     }
 }
-
-
-

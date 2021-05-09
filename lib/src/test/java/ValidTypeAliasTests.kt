@@ -13,7 +13,6 @@ typealias Where = FeatureCollection
  */
 class ValidTypeAliasTests {
 
-
     @Test
     fun testFeatureCollection() {
         val point = Point(latitude = 1.0, longitude = 2.0)
@@ -31,7 +30,6 @@ class ValidTypeAliasTests {
 
         testCommuteJson(geoJsonObject = collection)
     }
-
 
     private inline fun <reified T : GeoJsonObject> testCommuteJson(geoJsonObject: T) {
         val name = GeoJsonType.forObject(geoJsonObject)?.typeValue
