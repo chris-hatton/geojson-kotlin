@@ -2,7 +2,7 @@
 stages:
   - build
   - test
-  - deploy
+#  - deploy
 
 before_script:
 #  - echo `pwd` # debug
@@ -30,12 +30,12 @@ test:
   script:
     - ./gradlew check
 
-deploy:
-  stage: deploy
-  only:
-    - master
-  script:
-    - ./gradlew bintrayUpload
+#deploy:
+#  stage: deploy
+#  only:
+#    - master
+#  script:
+#    - ./gradlew bintrayUpload
 
 after_script:
   - echo "End CI"

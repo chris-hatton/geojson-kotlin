@@ -1,9 +1,23 @@
 package geojson.gson
 
-import com.google.gson.*
-import geojson.*
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
+import geojson.Exception
+import geojson.Feature
+import geojson.FeatureCollection
+import geojson.GeoJsonObject
+import geojson.Position
 import geojson.geometry.Geometry
-import geojson.geometry.impl.*
+import geojson.geometry.impl.LineString
+import geojson.geometry.impl.MultiLineString
+import geojson.geometry.impl.MultiPoint
+import geojson.geometry.impl.MultiPolygon
+import geojson.geometry.impl.Point
+import geojson.geometry.impl.Polygon
 import java.lang.reflect.Type
 
 // @Suppress("UNCHECKED_CAST")

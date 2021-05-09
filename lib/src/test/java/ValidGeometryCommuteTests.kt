@@ -1,5 +1,10 @@
 import geojson.GeoJsonObject
-import geojson.geometry.impl.*
+import geojson.geometry.impl.LineString
+import geojson.geometry.impl.MultiLineString
+import geojson.geometry.impl.MultiPoint
+import geojson.geometry.impl.MultiPolygon
+import geojson.geometry.impl.Point
+import geojson.geometry.impl.Polygon
 import geojson.gson.GeoJsonType
 import org.junit.Assert
 import org.junit.Test

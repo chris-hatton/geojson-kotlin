@@ -1,4 +1,5 @@
-import java.util.*
+import java.util.Properties
+import java.util.Date
 
 plugins {
     kotlin("jvm") version "1.5.0"
